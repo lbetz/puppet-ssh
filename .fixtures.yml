@@ -1,0 +1,5 @@
+fixtures:
+  repositories:
+  symlinks:
+    ssh: "#{source_dir}"
+    stdlib: "/Users/lbetz/puppetcode/modules/stdlib"
