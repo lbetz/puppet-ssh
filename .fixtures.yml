@@ -3,3 +3,4 @@ fixtures:
   symlinks:
     ssh: "#{source_dir}"
     stdlib: "/Users/lbetz/puppetcode/modules/stdlib"
+    concat: "/Users/lbetz/puppetcode/modules/concat"

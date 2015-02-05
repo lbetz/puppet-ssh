@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe 'ssh::server' do
-  let(:facts) { {:osfamily => 'redhat'} }
+  let(:facts) { {:osfamily => 'redhat', :concat_basedir => '/tmp'} }
 
   context 'with defaults for all parameters' do
     it do
       should contain_package('openssh-server')
-      should contain_file('/etc/ssh/sshd_config').with({
-        'mode' => '0600'
+      should contain_concat('sshd_config').with({
+        'path' => '/etc/ssh/sshd_config',
+        'mode' => '0600',
       })
       should contain_service('sshd').with({
         'ensure' => 'running',
@@ -58,6 +59,21 @@ describe 'ssh::server' do
       expect {
         should contain_service('sshd')
       }.to raise_error(Puppet::Error, /is not a boolean/)
+    end
+  end
+
+  context 'with options => { PermitRootLogin => no, AllowAgentForwarding => no }' do
+    let(:params) { {:options => {
+      'PermitRootLogin' => 'no',
+      'AllowAgentForwarding' => 'no'}}
+    }
+    it do
+      should contain_ssh__server__option('PermitRootLogin').with({
+        'value' => 'no',
+      })
+      should contain_ssh__server__option('AllowAgentForwarding').with({
+        'value' => 'no',
+      })
     end
   end
 
