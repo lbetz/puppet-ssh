@@ -6,6 +6,8 @@ class ssh::params {
       $sshd_package = 'openssh-server'
       $sshd_config  = '/etc/ssh/sshd_config'
       $sshd_service = 'sshd'
+
+      $ssh_package  = 'openssh-clients'
     }
 
     default: {
