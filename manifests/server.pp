@@ -11,9 +11,13 @@ class ssh::server(
 
   $_options = merge($params::default_sshd_options, $options)
 
-  Class['install']
+  anchor { 'ssh::server::begin':
+    notify => Class['service'],
+  }
+  -> Class['install']
   -> Class['config']
   ~> Class['service']
+  -> anchor { 'ssh::server::end': }
 
   include install, config, service
 
