@@ -8,6 +8,7 @@ class ssh::params {
       $sshd_service = 'sshd'
 
       $ssh_package  = 'openssh-clients'
+      $ssh_config   = '/etc/ssh/ssh_config'
     }
 
     default: {
@@ -98,6 +99,44 @@ class ssh::params {
     'PermitTunnel',
     'ChrootDirectory',
     'Banner',
+  ]
+
+  $default_ssh_options = {
+    'GSSAPIAuthentication' => 'yes',
+    'ForwardX11Trusted'    => 'yes',
+    'SendEnv'              => 'LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT LC_IDENTIFICATION LC_ALL LANGUAGE XMODIFIERS',
+  }
+
+  $allowed_ssh_options = [
+    'GSSAPIAuthentication',
+    'ForwardX11Trusted',
+    'SendEnv',
+    'ForwardAgent',
+    'ForwardX11',
+    'RhostsRSAAuthentication',
+    'RSAAuthentication',
+    'PasswordAuthentication',
+    'HostbasedAuthentication',
+    'GSSAPIAuthentication',
+    'GSSAPIDelegateCredentials',
+    'GSSAPIKeyExchange',
+    'GSSAPITrustDNS',
+    'BatchMode',
+    'CheckHostIP',
+    'AddressFamily',
+    'ConnectTimeout',
+    'StrictHostKeyChecking',
+    'IdentityFile',
+    'Port',
+    'Protocol',
+    'Cipher',
+    'Ciphers',
+    'MACs',
+    'EscapeChar',
+    'Tunnel',
+    'TunnelDevice',
+    'PermitLocalCommand',
+    'VisualHostKey',
   ]
 
 }
